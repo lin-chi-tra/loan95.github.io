@@ -1,1 +1,106 @@
-test 測試
+<!DOCTYPE html>
+<html>
+<head>
+  <title>貸款計算機</title>
+  <style>
+    body {
+      line-height: 2.2;
+      background-color: black;
+      color: white;
+      font-size: 54px;
+    }
+
+    /* RWD設定 */
+    @media only screen and (max-width: 600px) {
+      body {
+        line-height: 5;
+      }
+
+      label, select, button {
+        display: block;
+        margin-bottom: 400px;
+      }
+    }
+
+
+    /* 行距加大 */
+    label[for="loanAmount"],
+    label[for="interestRate"],
+    label[for="loanTerm"] {
+      line-height: 2.5;
+    }
+
+    button {
+      font-weight: bold;
+      font-size: 60px;
+      display: block;
+      margin: 60px auto;
+      background-color: red;
+      /* 設定按鈕背景顏色為紅色 */
+      color: white;
+      /* 設定按鈕字體顏色為白色 */
+    }
+
+    h1 {
+      font-size: 100px;
+      margin-bottom: 40px;
+    }
+
+    #subtitle {
+      font-size: 54px;
+      text-align: center;
+      margin-top: 120px;
+      color: yellow;
+      /* 設定文字顏色為黃色 */
+    }
+  </style>
+  <script>
+    function calculatePayment() {
+      var loanAmount = parseInt(document.getElementById("loanAmount").value);
+      var monthlyInterestRate = parseFloat(document.getElementById("interestRate").value) / 100;
+      var loanTerm = parseInt(document.getElementById("loanTerm").value);
+      
+      var monthlyPayment = (loanAmount * monthlyInterestRate * Math.pow(1 + monthlyInterestRate, loanTerm)) / (Math.pow(1 + monthlyInterestRate, loanTerm) - 1);
+      monthlyPayment = Math.round(monthlyPayment);
+      
+      document.getElementById("result").innerHTML = "每月繳費金額：" + monthlyPayment + " 元";
+    }
+  </script>
+</head>
+<body>
+  <h1 style="font-size: 72px;">信貸九五。優利計算</h1>
+  
+  <label for="loanAmount">貸款金額：</label>
+  <select id="loanAmount" style="font-size: 54px;">
+    <option value="100000">10萬</option>
+    <option value="150000">15萬</option>
+    <option value="200000">20萬</option>
+  </select>
+  
+  <br>
+  
+  <label for="interestRate">月利率：</label>
+  <select id="interestRate" style="font-size: 54px;">
+    <option value="1">1%</option>
+    <option value="1.5">1.5%</option>
+    <option value="2">2%</option>
+    <option value="2.5">2.5%</option>
+    <option value="3">3%</option>
+  </select>
+  
+  <br>
+  
+  <label for="loanTerm">還款期數：</label>
+  <select id="loanTerm" style="font-size: 54px;">
+    <option value="20">20期</option>
+    <option value="30">30期</option>
+    <option value="40">40期</option>
+  </select>
+  
+  <button onclick="calculatePayment()">計算</button>
+  
+  <div id="result" style="font-size: 54px;"></div>
+  
+  <div id="subtitle" style="font-size: 40px;">信貸九五，直通金主</div>
+</body>
+</html>
